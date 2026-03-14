@@ -6,7 +6,7 @@ primary_region = "yyz"
 
 [http_service]
   # 优化：合并依赖安装到启动命令，确保运行时能找到依赖
-  command = "pip install -r requirements.txt && python -m uvicorn app.main:app --host 0.0.0.0 --port 8080"
+  command = "python -m uvicorn app.main:app --host 0.0.0.0 --port 8080"
   auto_start_machines = true
   auto_stop_machines = true
   force_https = true
