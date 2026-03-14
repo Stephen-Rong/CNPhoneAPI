@@ -1,27 +1,23 @@
-app = "cnphoneapi"
-primary_region = "yyz"
+# fly.toml app configuration file generated for cnphoneapi on 2026-03-14T12:36:24Z
+#
+# See https://fly.io/docs/reference/configuration/ for information about how to use this file.
+#
+
+app = 'cnphoneapi'
+primary_region = 'yyz'
 
 [build]
-  command = "pip install -r requirements.txt"
 
 [http_service]
-  # 优化：合并依赖安装到启动命令，确保运行时能找到依赖
-  command = "pip install -r requirements.txt && python -m uvicorn app.main:app --host 0.0.0.0 --port 8080"
-  auto_start_machines = true
-  auto_stop_machines = true
-  force_https = true
   internal_port = 8080
+  force_https = true
+  auto_stop_machines = 'stop'
+  auto_start_machines = true
   min_machines_running = 0
-  processes = ["app"]
+  processes = ['app']
 
 [[vm]]
-  cpu_kind = "shared"
+  memory = '1gb'
+  cpu_kind = 'shared'
   cpus = 1
-  memory = "256mb"
-
-# 新增：延长健康检查超时，适配启动慢的场景
-[[services.tcp_checks]]
-  grace_period = "30s"
-  interval = "15s"
-  timeout = "5s"
-  restart_limit = 6
+  memory_mb = 256
